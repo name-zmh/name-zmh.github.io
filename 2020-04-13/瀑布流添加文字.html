@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #view{
+            width: 1500px;
+            margin: 0 auto;
+            position: relative;
+            border: solid 2px black;
+        }
+        #view div{
+            width: 220px;
+            position: absolute;
+        }
+        #view img{
+            width: 220px;
+        }
+        #view h5{
+            line-height: 30px;
+            background: white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="view">
+       
+    </div>
+    
+</body>
+<script src="data.js"></script>
+<script>
+    var cols=[
+        {
+            col:0,
+            h:0
+        },
+        {
+            col:1,
+            h:0
+        },
+        {
+            col:2,
+            h:0
+        },
+        {
+            col:3,
+            h:0
+        },
+        {
+            col:4,
+            h:0
+        },
+        {
+            col:5,
+            h:0
+        }
+    ]
+    for(var i=0;i<list.length;i++){
+        // 排序
+        cols.sort(function(a,b){
+            if(a.h>b.h){
+                return 1;
+            }else{
+                return -1;
+            }
+        })
+        var node=document.createElement("div");
+        node.style.left=cols[0].col*(220+36)+"px"
+        node.style.top=cols[0].h+"px";
+
+        node.innerHTML="<img src='"+list[i].img_url+"'/> <h5>"+list[i].title+"</h5>"
+
+        node.src=list[i].img_url;
+        view.appendChild(node);
+
+        var img_w=parseInt(list[i].img_url.split("?")[1].split("x")[0]);
+        var img_h=parseInt(list[i].img_url.split("?")[1].split("x")[1]);
+        var H=220*img_h/img_w;
+
+        var text_h=getComputedStyle(node.children[1],null).height
+        console.log(text_h);
+        
+        cols[0].h+=H+36;
+    } 
+        cols.sort(function(a,b){
+            if(a.h<b.h){
+                return 1;
+            }else{
+                return -1;
+            }
+        })
+        view.style.height=cols[0].h+"px";
+    
+</script>
+</html>
